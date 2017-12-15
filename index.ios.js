@@ -55,7 +55,7 @@ class AppTest extends Component {
                     <View style={{flexDirection:'row',width:375,height:60,backgroundColor:"#20b2aa"}}>
                         <View style={{flexDirection:'column',marginLeft:20,marginTop:10}}>
                             <Text style={{color:"white",fontSize:15}}>可用余额(元)</Text>
-       [                           <Text style={{color:"white",fontSize:18}}>200,00</Text>
+                            <Text style={{color:"white",fontSize:18}}>200,00</Text>
                         </View>
                         <View style={{flexDirection:'column',marginLeft:100,marginTop:10}}>
                             <Text style={{color:"white",fontSize:15}}>冻结余额(元)</Text>
