@@ -23,40 +23,84 @@ import MainPage from './MainPage';
 export default class ViewOne extends BaseComponent {
     constructor(props) {
         super(props);
+        var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
-            num: ''
+            renderPlaceholderOnly: 'blank',
+            dataSource: ds.cloneWithRows(['初次', '电话邀约', '已购买', '置换','复购'])
         }
+
+
     }
 
+    compareIdAndChangeTextColor = (index, data, selectId) => {
+        if (index == selectId && index >= 0) {
+            let textview = <Text style={[styles.b, {color: 'green'}]}>{data}</Text>;
+            return textview;
+        }
+       else  {
+            let textview = <Text style={styles.b}>{data}</Text>;
+            return textview;
+        }
+    }
     render() {
         return (
             <View>
-                <NavigatorView title='支付定金'/>
-                <View style={styles.ViewText}>
-                    <TextInput
-                        style={styles.TextInputs}
-                        placeholder="请输入金额"
-                        onChangeText={(text) => this.setState({num: text})}
-                    />
-                    <TouchableOpacity style={styles.button}
-                                      onPress={() => {
-                                          this.props.changeNum(this.state.num);
-                                          this.backPage()
-                                      }}>
 
-                        <Text style={styles.buttonText}>确定</Text>
-                    </TouchableOpacity>
+                <NavigatorView title='客户状态'/>
 
-                </View>
+                <ListView style={styles.a}
+                    dataSource={this.state.dataSource}
+
+                    renderRow={this.renderRow}/>
+
 
             </View>
         )
 
     }
+    renderRow = (rowData,sectionID,rowID,highlightRow) => {
+        console.log(rowData);
+        return (
+            <View>
+                   <TouchableOpacity onPress={()=>{
+
+
+                       this.props.changeNum(rowData, rowID);
+
+                       this.backPage();
+                   }}>
+                       {this.compareIdAndChangeTextColor(rowID, rowData, this.props.selectNum)}
+                   </TouchableOpacity>
+                    <View style={styles.c}></View>
+
+
+
+
+
+            </View>
+        )
+    }
 
 
 }
 const styles = StyleSheet.create({
+    a:{
+        marginTop:Pixel.getPixel(68),
+        backgroundColor: 'darkgray'
+    },
+    b:{
+        height:Pixel.getPixel(40),
+        marginTop:Pixel.getPixel(18),
+        fontSize:20,
+        textAlign:"center",
+        color:"black"
+
+
+    },
+    c:{
+        height:Pixel.getPixel(1),
+        backgroundColor:"black"
+    },
     buttonText: {
         textAlign: "center",
         color: "white"

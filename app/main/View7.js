@@ -14,25 +14,23 @@ import {
 } from 'react-native';
 const {width, height} = Dimensions.get('window');
 import  PixelUtil from '../utils/PixelUtil'
+import ViewOne from './ViewOne';
 let Pixel = new PixelUtil();
 
 export default class View7 extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+
+        }
+
+    }
 
 
     render() {
 
         return (
-            <View style={{flex: 1, height: Pixel.getPixel(90)}}>
-                <Text style={{marginLeft: Pixel.getPixel(15), marginTop: Pixel.getPixel(10)}}>支付定金</Text>
-                <Text style={{marginLeft: Pixel.getPixel(15), marginTop: Pixel.getPixel(10)}}>支付尾款</Text>
-                <Text style={{marginLeft: Pixel.getPixel(15), marginTop: Pixel.getPixel(10)}}>支付总计</Text>
-                <Text style={{
-                    marginTop: Pixel.getPixel(-60),
-                    marginLeft: Pixel.getPixel(295),
-                }}>{this.props.number}</Text>
-                <Text style={{marginTop: Pixel.getPixel(6), marginLeft: Pixel.getPixel(295),}}>115000</Text>
-                <Text style={{marginTop: Pixel.getPixel(5), marginLeft: Pixel.getPixel(295),}}>139000</Text>
-            </View>
+11
 
         );
     }

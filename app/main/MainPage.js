@@ -16,7 +16,7 @@ import * as fontAndClolr from '../constant/fontAndColor';
 import BaseComponent from '../component/BaseComponent';
 import NavigatorView from '../component/AllNavigationView';
 import MainRoot from './MainRoot';
-import ViewOne from './ViewOne';
+import ViewOne from './ViewOne'
 import View7 from "./View7";
 
 export default class MainPage extends BaseComponent {
@@ -30,10 +30,11 @@ export default class MainPage extends BaseComponent {
         super(props);
         var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
+            selectNum: '-1',
             renderPlaceholderOnly: 'blank',
             dataSource: ds.cloneWithRows(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'])
         }
-        this.num = 100;
+        this.num = '请输入客户状态';
 
 
     }
@@ -50,8 +51,9 @@ export default class MainPage extends BaseComponent {
         );
     }
 
-     changeNum = (num) =>{
+    changeNum = (num, select) =>{
         this.num = num;
+        this.state.selectNum  = select;
     }
 
 
@@ -61,7 +63,7 @@ export default class MainPage extends BaseComponent {
         }
         return (
             <View style={styles.flex}>
-                <NavigatorView title='账单详情'/>
+                <NavigatorView title='客户信息'/>
                 <ListView
                     dataSource={this.state.dataSource}
                     renderRow={this._renderRow}
@@ -73,134 +75,63 @@ export default class MainPage extends BaseComponent {
 
     _renderRow = (rowData) => {
         console.log('----', rowData);
+
+
+
         if (rowData == '1') {
+
             return (
 
-                <View style={{marginTop: Pixel.getPixel(91), height: Pixel.getPixel(80)}}>
-                    <Text style={{color: "red", fontSize: 20, marginLeft: Pixel.getPixel(15)}}>已拍下</Text>
-                    <Text style={{fontSize: 14, marginTop: Pixel.getPixel(7), marginLeft: Pixel.getPixel(15)}}>请尽快和卖家协商价格，待卖家通知后支付定金</Text>
-                </View>
-            )
+                    <View style={{flex: 1, height: Pixel.getPixel(40),marginTop: Pixel.getPixel(60)}}>
+                        <Text style={{
+                            fontSize: 25,
+                            marginTop: Pixel.getPixel(10),
+                            marginLeft: Pixel.getPixel(15)
+                        }}>基本信息</Text>
 
-        }
-        if (rowData == '2') {
-            return (
-                <View style={{flex: 1, backgroundColor: "#d3d3d3", height: Pixel.getPixel(10)}}></View>
+                    </View>
+
+
             )
         }
+
         if (rowData == '3') {
-
             return (
-                <View style={{flex: 1, height: Pixel.getPixel(40)}}>
+                <View style={{flex: 1, height: Pixel.getPixel(90)}}>
+
+                    <Text style={{marginLeft: Pixel.getPixel(15), marginTop: Pixel.getPixel(10)}}>客户姓名</Text>
+
+
+                    <Text style={{marginLeft: Pixel.getPixel(15), marginTop: Pixel.getPixel(10)}}>当前客户状态</Text>
+
+                    <Text style={{marginLeft: Pixel.getPixel(15), marginTop: Pixel.getPixel(10)}}>信息来源</Text>
                     <Text style={{
-                        fontSize: 14,
-                        color: "#dcdcdc",
-                        marginTop: Pixel.getPixel(10),
-                        marginLeft: Pixel.getPixel(15)
-                    }}>订单号：12312331221</Text>
-                    <Text style={{
-                        fontSize: 14,
-                        color: "#dcdcdc",
-                        marginTop: Pixel.getPixel(-17),
-                        marginLeft: Pixel.getPixel(180)
-                    }}>订单日期：2019/09/09</Text>
+                        marginTop: Pixel.getPixel(-60),
+                        marginLeft: Pixel.getPixel(260),
+                    }}>summer</Text>
+                    <TouchableOpacity onPress={() => {
+                        this.toNextPage({
+                            name: 'ViewOne',
+                            component: ViewOne,
+                            params: {
+                                selectNum: this.state.selectNum,
+                                name: 'summer',
+                                changeNum: this.changeNum
+                            }
+                        });
+                    }}>
+                        <Text style={{marginTop: Pixel.getPixel(7), marginLeft: Pixel.getPixel(260),color:"darkgrey"}}>{this.num}</Text>
+                    </TouchableOpacity>
+                    <Text style={{marginTop: Pixel.getPixel(10), marginLeft: Pixel.getPixel(260),color:"darkgrey"}}>请选择客户来源</Text>
                 </View>
             )
         }
         if (rowData == '4') {
             return (
-
-                <View style={{flex: 1, height: Pixel.getPixel(105)}}>
-                    <Text style={{fontSize: 20, marginLeft: Pixel.getPixel(15)}}>[北京]奔驰M级(进口)2015款M……</Text>
-                    <Text style={{
-                        fontSize: 12,
-                        marginTop: Pixel.getPixel(7),
-                        marginLeft: Pixel.getPixel(15)
-                    }}>里程:20.59万</Text>
-                </View>
-            )
-
-        }
-        if (rowData == '5') {
-            return (
                 <View style={{flex: 1, backgroundColor: "#d3d3d3", height: Pixel.getPixel(10)}}></View>
             )
         }
-        if (rowData == '6') {
 
-            return (
-                <TouchableOpacity onPress={() => {
-                    this.toNextPage({
-                        name: 'ViewOne',
-                        component: ViewOne,
-                        params: {
-                            name: 'summer',
-                            changeNum: this.changeNum
-                        }
-                    });
-                }}>
-                    <View style={{flex: 1, height: Pixel.getPixel(40)}}>
-                        <Text style={{
-                            fontSize: 25,
-                            marginTop: Pixel.getPixel(10),
-                            marginLeft: Pixel.getPixel(15)
-                        }}>采购信息</Text>
-
-                    </View>
-                </TouchableOpacity>
-
-            )
-        }
-
-        if (rowData == '7') {
-            return (
-                <View7 number={this.num}/>
-            )
-        }
-        if (rowData == '8') {
-            return (
-                <View style={{flex: 1, backgroundColor: "#d3d3d3", height: Pixel.getPixel(10)}}></View>
-            )
-        }
-        if (rowData == '9') {
-
-            return (
-                <View style={{flex: 1, height: Pixel.getPixel(40)}}>
-                    <Text style={{
-                        fontSize: 25,
-                        marginTop: Pixel.getPixel(10),
-                        marginLeft: Pixel.getPixel(15)
-                    }}>卖家信息</Text>
-
-                </View>
-            )
-        }
-
-        if (rowData == '10') {
-            return (
-                <View style={{flex: 1, height: Pixel.getPixel(110)}}>
-                    <Text style={{marginLeft: Pixel.getPixel(15), marginTop: Pixel.getPixel(10)}}>姓名</Text>
-                    <Text style={{marginLeft: Pixel.getPixel(15), marginTop: Pixel.getPixel(10)}}>联系方式</Text>
-                    <Text style={{marginLeft: Pixel.getPixel(15), marginTop: Pixel.getPixel(10)}}>企业名称</Text>
-
-                    <TouchableOpacity style={styles.button} onPress={() => {
-                        this.toNextPage({
-                            name: 'MainRoot',
-                            component: MainRoot,
-                            params: {
-                                name: 'summer'
-                            }
-                        });
-                    }}>
-                        <Text style={styles.buttonText}>确认验收</Text>
-
-
-                    </TouchableOpacity>
-
-
-                </View>
-            )
-        }
         else {
             return null;
         }
