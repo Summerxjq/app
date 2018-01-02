@@ -1,3 +1,6 @@
+/**
+ * Created by xujiaqi on 2018/1/2.
+ */
 import React, {Component} from 'react';
 import {
     View,
@@ -18,7 +21,7 @@ import BaseComponent from '../component/BaseComponent';
 import Landing from './LandingPage'
 import Registration from './RegistrationPage';
 import NavigatorView from '../component/AllNavigationView';
-export default class MainPage extends BaseComponent {
+export default class LandingPage extends BaseComponent {
     componentWillUnmount() {
     }
     /**
@@ -148,4 +151,3 @@ const styles = StyleSheet.create({
         backgroundColor: 'ghostwhite'
     },
 });
-

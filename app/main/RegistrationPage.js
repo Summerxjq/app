@@ -1,53 +1,34 @@
+/**
+ * Created by xujiaqi on 2018/1/2.
+ */
 import React, {Component} from 'react';
 import {
     View,
     StyleSheet,
     Dimensions,
     Text,
-    Image,
     TextInput,
+    Image,
     TouchableOpacity
-
-
 } from 'react-native';
 const {width, height} = Dimensions.get('window');
 import  PixelUtil from '../utils/PixelUtil'
 let Pixel = new PixelUtil();
 import * as fontAndClolr from '../constant/fontAndColor';
+import NavigatorView from '../component/AllNavigationView'
 import BaseComponent from '../component/BaseComponent';
-import Landing from './LandingPage'
-import Registration from './RegistrationPage';
-import NavigatorView from '../component/AllNavigationView';
+import Gestures from './GesturesPage'
 export default class MainPage extends BaseComponent {
-    componentWillUnmount() {
-    }
-    /**
-     * 初始化,指定tab及页面被选中
-     */
     constructor(props) {
         super(props);
-        this.state = {
-            renderPlaceholderOnly: 'blank',
-        }
+        this.state = {text: '用户名'};
     }
-    initFinish = () => {
-        this.setState({renderPlaceholderOnly: 'success'});
-    };
-    _renderPlaceholderView() {
-        return (
-            <View style={{width: width, height: height,backgroundColor: fontAndClolr.COLORA3}}>
-                {this.loadView()}
-            </View>
-        );
-    }
+
     render() {
-        if (this.state.renderPlaceholderOnly !== 'success') {
-            return this._renderPlaceholderView();
-        }
         return (
             <View >
                 <View style={styles.flex}>
-                    <NavigatorView title="登录"/>
+                    <NavigatorView title="注册"/>
 
                 </View>
                 <View style={styles.Maxview}>
@@ -70,19 +51,25 @@ export default class MainPage extends BaseComponent {
                         <Image source={require('../image/yzm.png')}/>
                     </View>
                     <View>
-                        <TouchableOpacity onPress={() => {
-                            this.toNextPage({
-                                name: 'Registration',
-                                component: Registration,
-                                params: {
-                                }
-                            });
-                        }}>
-                            <Text style={styles.zhuceview}>没有账号？去注册></Text>
-                        </TouchableOpacity>
+                        <TextInput style={styles.inputview4}
+                                   placeholder="昵称"
+                        />
+                    </View>
+                    <View>
+                        <View style={styles.inputview5}
+
+                        />
                     </View>
                     <View style={styles.dengluview}>
-                        <Text style={styles.denglutext}>登录</Text>
+                        <TouchableOpacity onPress={() => {
+                            this.toNextPage({
+                                name: 'Gestures',
+                                component: Gestures,
+                                params: {}
+                            });
+                        }}>
+                            <Text style={styles.denglutext}>注册</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </View>
@@ -112,7 +99,7 @@ const styles = StyleSheet.create({
         width: Pixel.getPixel(250),
         height: Pixel.getPixel(40),
         backgroundColor: 'red',
-        marginTop: Pixel.getPixel(80),
+        marginTop: Pixel.getPixel(40),
         marginLeft: Pixel.getPixel(60),
     },
     inputview1: {
@@ -141,6 +128,24 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         marginLeft: Pixel.getPixel(37),
         marginTop: Pixel.getPixel(40),
+    },
+    inputview4: {
+        height: Pixel.getPixel(40),
+        width: Pixel.getPixel(300),
+        backgroundColor: 'white',
+        borderColor: 'darkgray',
+        borderWidth: 1,
+        marginLeft: Pixel.getPixel(37),
+        marginTop: Pixel.getPixel(40),
+    },
+    inputview5: {
+        height: Pixel.getPixel(140),
+        width: Pixel.getPixel(300),
+        backgroundColor: 'white',
+        borderColor: 'darkgray',
+        borderWidth: 1,
+        marginLeft: Pixel.getPixel(37),
+        marginTop: Pixel.getPixel(20),
     },
     Maxview: {
         marginTop: Pixel.getPixel(65),

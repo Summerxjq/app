@@ -1,3 +1,6 @@
+/**
+ * Created by xujiaqi on 2018/1/2.
+ */
 import React, {Component} from 'react';
 import {
     View,
@@ -18,7 +21,7 @@ import BaseComponent from '../component/BaseComponent';
 import Landing from './LandingPage'
 import Registration from './RegistrationPage';
 import NavigatorView from '../component/AllNavigationView';
-export default class MainPage extends BaseComponent {
+export default class LandingPage extends BaseComponent {
     componentWillUnmount() {
     }
     /**
@@ -47,7 +50,7 @@ export default class MainPage extends BaseComponent {
         return (
             <View >
                 <View style={styles.flex}>
-                    <NavigatorView title="登录"/>
+                    <NavigatorView title="第三页"/>
 
                 </View>
                 <View style={styles.Maxview}>
@@ -82,7 +85,7 @@ export default class MainPage extends BaseComponent {
                         </TouchableOpacity>
                     </View>
                     <View style={styles.dengluview}>
-                        <Text style={styles.denglutext}>登录</Text>
+                        <Text style={styles.denglutext}>第三页</Text>
                     </View>
                 </View>
             </View>
@@ -148,4 +151,3 @@ const styles = StyleSheet.create({
         backgroundColor: 'ghostwhite'
     },
 });
-
