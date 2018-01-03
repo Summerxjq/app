@@ -21,15 +21,25 @@ import Gestures from './GesturesPage'
 export default class MainPage extends BaseComponent {
     constructor(props) {
         super(props);
-        this.state = {text: '用户名'};
+        this.state = {show: false,};
     }
-
+    _onPressListItem() {
+        this.setState((previousState) => {
+            return ({
+                show: !previousState.show,
+            })
+        });
+    }
     render() {
+        let v = this.state.show ? <View style={styles.photoview}>
+            <View style={styles.everyview}><Text style={styles.everytext}>去拍照</Text></View>
+            <View style={styles.everyview}><Text style={styles.everytext}>去相册选择</Text></View>
+            <View style={styles.everyview}><Text style={styles.everytext}>取消</Text></View>
+        </View> : null;
         return (
             <View >
                 <View style={styles.flex}>
                     <NavigatorView title="注册"/>
-
                 </View>
                 <View style={styles.Maxview}>
                     <View>
@@ -55,10 +65,14 @@ export default class MainPage extends BaseComponent {
                                    placeholder="昵称"
                         />
                     </View>
-                    <View>
-                        <View style={styles.inputview5}
+                    <View style={styles.inputview5}>
+                        <Text style={styles.imagetext}>请上传店铺展示照片</Text>
+                        <View style={styles.imageviews2}>
+                            <TouchableOpacity onPress={() => this._onPressListItem()}>
+                                <Text style={styles.jiatext}>+</Text>
+                            </TouchableOpacity>
+                        </View>
 
-                        />
                     </View>
                     <View style={styles.dengluview}>
                         <TouchableOpacity onPress={() => {
@@ -71,12 +85,47 @@ export default class MainPage extends BaseComponent {
                             <Text style={styles.denglutext}>注册</Text>
                         </TouchableOpacity>
                     </View>
+                    {v}
                 </View>
-            </View>
+            </View >
         );
     }
 }
 const styles = StyleSheet.create({
+    everytext: {
+        textAlign: 'center',
+        lineHeight: Pixel.getPixel(60),
+        fontSize: 15
+    },
+    everyview: {
+        height: Pixel.getPixel(60),
+        borderTopColor: 'darkgray',
+        borderTopWidth: 1,
+        backgroundColor: 'white'
+    },
+    photoview: {
+        marginTop: Pixel.getPixel(-135),
+    },
+    jiatext: {
+        color: 'darkgray',
+        fontSize: 50,
+        marginTop: Pixel.getPixel(10),
+        marginLeft: Pixel.getPixel(28),
+    },
+    imageviews2: {
+        height: Pixel.getPixel(90),
+        width: Pixel.getPixel(90),
+        borderWidth: 1,
+        borderStyle: 'dashed',
+        borderColor: 'darkgray',
+        marginTop: Pixel.getPixel(10),
+        marginLeft: Pixel.getPixel(10),
+    },
+    imagetext: {
+        fontSize: 15,
+        marginLeft: Pixel.getPixel(10),
+        marginTop: Pixel.getPixel(10)
+    },
     imageview: {
         marginLeft: Pixel.getPixel(210),
         marginTop: Pixel.getPixel(-40),

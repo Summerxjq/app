@@ -21,9 +21,13 @@ import BaseComponent from '../component/BaseComponent';
 import Landing from './LandingPage'
 import Registration from './RegistrationPage';
 import NavigatorView from '../component/AllNavigationView';
+var PasswordGesture = require('react-native-gesture-password');
+var Password1 = '';
+
 export default class LandingPage extends BaseComponent {
     componentWillUnmount() {
     }
+
     /**
      * 初始化,指定tab及页面被选中
      */
@@ -31,18 +35,69 @@ export default class LandingPage extends BaseComponent {
         super(props);
         this.state = {
             renderPlaceholderOnly: 'blank',
+            message: '请设置手势密码'
         }
     }
+
     initFinish = () => {
         this.setState({renderPlaceholderOnly: 'success'});
     };
+
     _renderPlaceholderView() {
         return (
-            <View style={{width: width, height: height,backgroundColor: fontAndClolr.COLORA3}}>
+            <View style={{width: width, height: height, backgroundColor: fontAndClolr.COLORA3}}>
                 {this.loadView()}
             </View>
         );
     }
+
+    onStart = (password) => {
+        if (Password1 === '') {
+            this.setState({
+                message: '请输入手势密码'
+            });
+        } else {
+            this.setState({
+                message: '请再次输入你的密码'
+            });
+        }
+
+    }
+    onEnd = (password) => {
+        if (Password1 === '') {
+            // The first password
+            Password1 = password;
+            this.setState({
+                status: 'normal',
+                message: 'Please input your password secondly.'
+            });
+        } else {
+            // The second password
+            if (password === Password1) {
+                this.setState({
+                    status: 'right',
+                    message: 'Your password is set to ' + password
+                });
+
+                Password1 = '';
+                change = () => {
+                    this.toNextPage({
+                        name: 'HomePage',
+                        component: HomePage,
+                        params: {}
+                    })
+                }
+
+                // your codes to close this view
+            } else {
+                this.setState({
+                    status: 'wrong',
+                    message: '密码不正确重新输入'
+                });
+            }
+        }
+    }
+
     render() {
         if (this.state.renderPlaceholderOnly !== 'success') {
             return this._renderPlaceholderView();
@@ -50,100 +105,45 @@ export default class LandingPage extends BaseComponent {
         return (
             <View >
                 <View style={styles.flex}>
-                    <NavigatorView title="第三页"/>
-
+                    <NavigatorView title="手势密码"/>
                 </View>
                 <View style={styles.Maxview}>
-                    <View>
-                        <TextInput style={styles.inputview1}
-                                   placeholder="用户名"
+
+                    <View style={styles.shoushiview}>
+                        <PasswordGesture style={styles.shoushiview}
+                                         ref='pg'
+                                         status={this.state.status}
+                                         message={this.state.message}
+                                         onStart={() => this.onStart()}
+                                         onEnd={(password) => this.onEnd(password)}
                         />
                     </View>
-                    <View>
-                        <TextInput style={styles.inputview2}
-                                   placeholder="密码"
-                        />
-                    </View>
-                    <View>
-                        <TextInput style={styles.inputview3}
-                                   placeholder="验证码"
-                        />
-                    </View>
-                    <View style={styles.imageview}>
-                        <Image source={require('../image/yzm.png')}/>
-                    </View>
-                    <View>
-                        <TouchableOpacity onPress={() => {
-                            this.toNextPage({
-                                name: 'Registration',
-                                component: Registration,
-                                params: {
-                                }
-                            });
-                        }}>
-                            <Text style={styles.zhuceview}>没有账号？去注册></Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.dengluview}>
-                        <Text style={styles.denglutext}>第三页</Text>
-                    </View>
+                    <View style={styles.yonghuview}><Text style={styles.yonghutext}>用户名</Text></View>
                 </View>
             </View>
         );
     }
 }
 const styles = StyleSheet.create({
-    imageview: {
-        marginLeft: Pixel.getPixel(210),
-        marginTop: Pixel.getPixel(-40),
+    yonghutext:{
+        textAlign:'center'
     },
-    zhuceview: {
-        marginLeft: Pixel.getPixel(200),
-        marginTop: Pixel.getPixel(40),
-        textDecorationLine: 'underline',
-        textDecorationColor: 'red',
-        fontSize: 15,
-        color: 'red'
-    },
-    denglutext: {
-        lineHeight: Pixel.getPixel(40),
-        textAlign: 'center',
-        color: 'white',
-        fontSize: 15
-    },
-    dengluview: {
-        width: Pixel.getPixel(250),
+    yonghuview:{
         height: Pixel.getPixel(40),
-        backgroundColor: 'red',
         marginTop: Pixel.getPixel(80),
-        marginLeft: Pixel.getPixel(60),
+
     },
-    inputview1: {
-        height: Pixel.getPixel(40),
-        width: Pixel.getPixel(300),
+    shoushiview: {
         backgroundColor: 'white',
-        borderColor: 'darkgray',
-        borderWidth: 1,
-        marginLeft: Pixel.getPixel(37),
-        marginTop: Pixel.getPixel(40),
+
     },
-    inputview2: {
-        height: Pixel.getPixel(40),
-        width: Pixel.getPixel(300),
-        backgroundColor: 'white',
-        borderColor: 'darkgray',
-        borderWidth: 1,
-        marginLeft: Pixel.getPixel(37),
-        marginTop: Pixel.getPixel(40),
+    textview: {
+        height: Pixel.getPixel(80),
     },
-    inputview3: {
-        height: Pixel.getPixel(40),
-        width: Pixel.getPixel(160),
-        backgroundColor: 'white',
-        borderColor: 'darkgray',
-        borderWidth: 1,
-        marginLeft: Pixel.getPixel(37),
-        marginTop: Pixel.getPixel(40),
+    shoushitext: {
+        fontSize: 16,
+        textAlign: 'center',
+        marginTop: Pixel.getPixel(20),
     },
     Maxview: {
         marginTop: Pixel.getPixel(65),

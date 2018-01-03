@@ -17,7 +17,10 @@ import * as fontAndClolr from '../constant/fontAndColor';
 import BaseComponent from '../component/BaseComponent';
 import Landing from './LandingPage'
 import Registration from './RegistrationPage';
+import Gestures from './GesturesPage'
 import NavigatorView from '../component/AllNavigationView';
+import LianXi from './LianXi'
+import HomePage from './HomePage'
 export default class MainPage extends BaseComponent {
     componentWillUnmount() {
     }
@@ -82,7 +85,16 @@ export default class MainPage extends BaseComponent {
                         </TouchableOpacity>
                     </View>
                     <View style={styles.dengluview}>
+                        <TouchableOpacity onPress={() => {
+                            this.toNextPage({
+                                name: 'HomePage',
+                                component: HomePage,
+                                params: {
+                                }
+                            });
+                        }}>
                         <Text style={styles.denglutext}>登录</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </View>
