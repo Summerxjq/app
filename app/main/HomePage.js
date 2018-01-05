@@ -11,7 +11,8 @@ import {
     TextInput,
     TouchableOpacity,
     TabBarIOS,
-    ScrollView
+    ScrollView,
+    ListView
 
 } from 'react-native';
 const {width, height} = Dimensions.get('window');
@@ -22,59 +23,168 @@ import BaseComponent from '../component/BaseComponent';
 import Landing from './LandingPage'
 import Registration from './RegistrationPage';
 import NavigatorView from '../component/AllNavigationView';
-
+import First from './FirstPage';
+import Second from './SecondPage';
+import Third from './ThirdPage';
+import Fourth from './FourthPage'
 export default class LandingPage extends BaseComponent {
+    constructor(props) {
+        super(props);
+        this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+
+        data = [{title: '首页',image:require("../image/首页2.png"),flag: true}, {title: '分类',image:require("../image/类目.png"), flag: false}, {
+            title: '购物车', image:require("../image/购物车.png"),flag: false}, {title: '我的', image:require("../image/我的.png"),flag: false}];
+        this.state = {
+            navTitle: '首页',
+            dataSource: this.ds.cloneWithRows(data),
+            isShow:true,
+            View:<First/>,
+
+        };
+        this.num = "棣栭〉";
+    }
+
+    renderRow = (rowData, sectionId, rowId) => {
+        console.log('-------flag', rowData.flag);
+        return (
+            <View style={[styles.sview,]}>
+
+                <TouchableOpacity onPress={
+                    () => {
+                        this.clickRowData(rowData.title, rowId);
+                    }}>
+
+                    <Image source={rowData.image}
+                           resizeMode="center"
+                           style={styles.imageviews}/>
+
+
+                    <Text
+                        style={[styles.etext, rowData.flag ? {color: 'red'} : {}]}>{rowData.title == undefined ? rowData : rowData.title}</Text>
+                </TouchableOpacity>
+            </View>
+        )
+
+
+    }
+    clickRowData = (title, rowID) => {
+        data.map((value) => {
+            value.flag = false;
+        });
+        data[rowID].flag = true;
+
+        if (title == '首页') {
+            this.setState({
+             View:<First/>,
+             image:require("../image/首页2.png")
+
+
+            })
+            var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+            data = [{title: '首页',image:require("../image/首页2.png"),flag: true}, {title: '分类',image:require("../image/类目.png"), flag:false}, {
+                title: '购物车', image:require("../image/购物车.png"),flag: false}, {title: '我的', image:require("../image/我的.png"),flag: false}];
+            this.setState({
+                dataSource: ds.cloneWithRows(data),
+            });
+        }
+        if (title == '分类') {
+            this.setState({
+                navTitle: '分类',
+                View:<Second/>,
+
+
+            })
+            var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+            data = [{title: '首页',image:require("../image/首页.png"),flag: false}, {title: '分类',image:require("../image/类目2.png"), flag:true}, {
+                title: '购物车', image:require("../image/购物车.png"),flag: false}, {title: '我的', image:require("../image/我的.png"),flag: false}];
+            this.setState({
+                dataSource: ds.cloneWithRows(data),
+            });
+        }
+        if (title == '购物车') {
+            this.setState({
+                navTitle: '购物车',
+                View:<Third/>
+
+
+            })
+            var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+            data = [{title: '首页',image:require("../image/首页.png"),flag: false}, {title: '分类',image:require("../image/类目.png"), flag:false}, {
+                title: '购物车', image:require("../image/购物车2.png"),flag: true}, {title: '我的', image:require("../image/我的.png"),flag: false}];
+            this.setState({
+                dataSource: ds.cloneWithRows(data),
+            });
+        }
+        if (title == '我的') {
+            this.setState({
+                navTitle: '我的',
+                View:<Fourth/>
+
+            })
+            var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+            data = [{title: '首页',image:require("../image/首页.png"),flag: false}, {title: '分类',image:require("../image/类目.png"), flag:false}, {
+                title: '购物车', image:require("../image/购物车.png"),flag: false}, {title: '我的', image:require("../image/我的2.png"),flag:true}];
+            this.setState({
+                dataSource: ds.cloneWithRows(data),
+            });
+        }
+
+
+
+    }
+
 
     render() {
         return (
-            <View><App/></View>
+            <View>
+                <View>{this.state.View}</View>
+                <View style={styles.tabview}>
+                    <View>
+
+                    </View>
+                    <ListView contentContainerStyle={styles.container}
+                              dataSource={this.state.dataSource}
+                              renderRow={this.renderRow}
+                    />
+                </View>
+            </View>
         )
     }
 
 
 }
-var App = React.createClass({
-    getInitialState: function () {
-        return {
-            tab: 'Home'
 
-        };
-    },
-    select: function (tabName) {
-        this.setState({
-            tab: tabName
-        });
-    },
-    render: function () {
-        return (
-        <View style={styles.Maxview}>
-            <TabBarIOS tintColor="red">
-                <TabBarIOS.Item style={styles.tabview}
-                                title="首页"
-
-                                onPress={this.select.bind(this, 'Home')}
-                                selected={this.select.tab === 'Home'}>
-
-                </TabBarIOS.Item>
-
-            </TabBarIOS>
-        </View>
-
-        )
-    }
-});
 var styles = StyleSheet.create({
-    Maxview:{
-        marginTop:Pixel.getPixel(450),
+    imageviews: {
+        width: Pixel.getPixel(30),
+        height: Pixel.getPixel(30),
+        marginLeft:Pixel.getPixel(30),
+
     },
+    etext: {
+        textAlign: "center",
+        marginTop: 5,
+        marginBottom: 14,
+        fontSize: 15
+    },
+    container: {
+        flexDirection: 'row',
+        marginLeft: Pixel.getPixel(7),
+    },
+    sview: {
+        width: Pixel.getPixel(90),
+        height: Pixel.getPixel(60),
+        marginTop: Pixel.getPixel(3),
+
+    },
+    Maxview: {},
     tabview: {
-        width: Pixel.getPixel(50),
-        height: Pixel.getPixel(50),
-    },
-    flex: {
-        flex: 1,
 
-        marginTop: Pixel.getPixel(630),
-    },
+        height: Pixel.getPixel(56),
+        backgroundColor: 'white',
+        borderTopColor: 'darkgray',
+        borderTopWidth: 1,
+        flexDirection: 'row',
 
+    },
 })

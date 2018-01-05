@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
     Maxview: {
         marginTop: Pixel.getPixel(65),
         height: Pixel.getPixel(610),
-        backgroundColor: 'ghostwhite'
+
     },
 });
 
