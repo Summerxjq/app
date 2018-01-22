@@ -74,7 +74,7 @@ export default class MainPage extends BaseComponent {
                 } else {
                     console.log('12312')
                     return (
-                        AlertIOS.alert(
+                        alert(
                             '抱歉',
                             '请重新登录',
                             [{text: '确定', onPress: () => {

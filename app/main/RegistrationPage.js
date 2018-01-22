@@ -62,7 +62,7 @@ export default class RegistrationPage extends BaseComponent {
                     });
                 } else {
                     return (
-                        AlertIOS.alert(
+                        alert(
                             '抱歉',
                             '请重新注册',
                             [{text: '确定', onPress: () => {

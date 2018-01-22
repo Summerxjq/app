@@ -99,7 +99,7 @@ export default class Gestures extends BaseComponent {
                         }
                         else {
                             return (
-                                AlertIOS.alert(
+                                alert(
                                     '抱歉',
                                     '请重新输入手势密码',
                                     [{text: '确定', onPress: () => {
