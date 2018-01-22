@@ -6,7 +6,8 @@ import {
     Text,
     Image,
     TextInput,
-    TouchableOpacity
+    TouchableOpacity,
+    AlertIOS
 
 
 } from 'react-native';
@@ -21,6 +22,9 @@ import Gestures from './GesturesPage'
 import NavigatorView from '../component/AllNavigationView';
 import LianXi from './LianXi'
 import HomePage from './HomePage'
+import Gesturesdeng from './GesturesdengPage'
+import  StorageUtil from '../utils/StorageUtil'
+import * as storageKeyNames from '../constant/storageKeyNames';
 export default class MainPage extends BaseComponent {
     componentWillUnmount() {
     }
@@ -31,6 +35,8 @@ export default class MainPage extends BaseComponent {
         super(props);
         this.state = {
             renderPlaceholderOnly: 'blank',
+            num:'',
+            password:''
         }
     }
     initFinish = () => {
@@ -42,6 +48,44 @@ export default class MainPage extends BaseComponent {
                 {this.loadView()}
             </View>
         );
+    }
+
+    fetchData = () => {
+        let formData = new FormData();
+        formData.append('account', this.state.num,);
+        formData.append('accountPassword', this.state.password,);
+        fetch('http://10.2.1.92:8080/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: formData,
+        }).then((response) => response.json())
+            .then((responseData) => {
+            console.log(responseData)
+                if (responseData.rspCode == '000000') {
+                    console.log(responseData)
+                    this.toNextPage({
+                        name: 'Gesturesdeng',
+                        component: Gesturesdeng,
+                        params: {num:this.state.num}
+                    });
+
+                } else {
+                    console.log('12312')
+                    return (
+                        AlertIOS.alert(
+                            '抱歉',
+                            '请重新登录',
+                            [{text: '确定', onPress: () => {
+                                }},]
+                        )
+                    )
+                }
+            }).catch(
+            (error)=> {
+
+            });
     }
     render() {
         if (this.state.renderPlaceholderOnly !== 'success') {
@@ -57,11 +101,14 @@ export default class MainPage extends BaseComponent {
                     <View>
                         <TextInput style={styles.inputview1}
                                    placeholder="用户名"
+                                   maxLength={11}
+                                   onChangeText={(text) => this.setState({num: text})}
                         />
                     </View>
                     <View>
                         <TextInput style={styles.inputview2}
                                    placeholder="密码"
+                                   onChangeText={(text) => this.setState({password: text})}
                         />
                     </View>
                     <View>
@@ -86,12 +133,11 @@ export default class MainPage extends BaseComponent {
                     </View>
                     <View style={styles.dengluview}>
                         <TouchableOpacity onPress={() => {
-                            this.toNextPage({
-                                name: 'HomePage',
-                                component: HomePage,
-                                params: {
-                                }
-                            });
+                             /*this.toNextPage({
+                                 name: 'HomePage',
+                               component: HomePage,
+                             });*/
+                            this.fetchData()
                         }}>
                         <Text style={styles.denglutext}>登录</Text>
                         </TouchableOpacity>

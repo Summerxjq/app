@@ -27,7 +27,7 @@ import First from './FirstPage';
 import Second from './SecondPage';
 import Third from './ThirdPage';
 import Fourth from './FourthPage'
-export default class LandingPage extends BaseComponent {
+export default class HomePage extends BaseComponent {
     constructor(props) {
         super(props);
         this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -36,7 +36,7 @@ export default class LandingPage extends BaseComponent {
             title: '购物车', image:require("../image/购物车.png"),flag: false}, {title: '我的', image:require("../image/我的.png"),flag: false}];
         this.state = {
             navTitle: '首页',
-            dataSource: this.ds.cloneWithRows(data),
+            dataSource:this.ds.cloneWithRows(data),
             isShow:true,
             View:<First/>,
 
@@ -48,37 +48,30 @@ export default class LandingPage extends BaseComponent {
         console.log('-------flag', rowData.flag);
         return (
             <View style={[styles.sview,]}>
-
                 <TouchableOpacity onPress={
                     () => {
                         this.clickRowData(rowData.title, rowId);
                     }}>
-
                     <Image source={rowData.image}
                            resizeMode="center"
                            style={styles.imageviews}/>
-
-
                     <Text
-                        style={[styles.etext, rowData.flag ? {color: 'red'} : {}]}>{rowData.title == undefined ? rowData : rowData.title}</Text>
+                        style={[styles.etext, rowData.flag ? {color: 'red'} : {}]}>{rowData.title}</Text>
                 </TouchableOpacity>
             </View>
         )
-
-
     }
-    clickRowData = (title, rowID) => {
+    clickRowData = (title, rowId) => {
         data.map((value) => {
-            value.flag = false;
+            value.flag=false;
         });
-        data[rowID].flag = true;
+        //data[rowID].flag=true;
 
         if (title == '首页') {
+            console.log('123')
             this.setState({
              View:<First/>,
              image:require("../image/首页2.png")
-
-
             })
             var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
             data = [{title: '首页',image:require("../image/首页2.png"),flag: true}, {title: '分类',image:require("../image/类目.png"), flag:false}, {
@@ -91,8 +84,6 @@ export default class LandingPage extends BaseComponent {
             this.setState({
                 navTitle: '分类',
                 View:<Second/>,
-
-
             })
             var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
             data = [{title: '首页',image:require("../image/首页.png"),flag: false}, {title: '分类',image:require("../image/类目2.png"), flag:true}, {
@@ -105,8 +96,6 @@ export default class LandingPage extends BaseComponent {
             this.setState({
                 navTitle: '购物车',
                 View:<Third/>
-
-
             })
             var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
             data = [{title: '首页',image:require("../image/首页.png"),flag: false}, {title: '分类',image:require("../image/类目.png"), flag:false}, {

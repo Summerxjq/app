@@ -7,6 +7,7 @@ import {
     StyleSheet,
     Dimensions,
     Text,
+    AlertIOS,
     TextInput,
     Image,
     TouchableOpacity
@@ -14,14 +15,23 @@ import {
 const {width, height} = Dimensions.get('window');
 import  PixelUtil from '../utils/PixelUtil'
 let Pixel = new PixelUtil();
+let userNum;
+let userName;
 import * as fontAndClolr from '../constant/fontAndColor';
 import NavigatorView from '../component/AllNavigationView'
 import BaseComponent from '../component/BaseComponent';
-import Gestures from './GesturesPage'
-export default class MainPage extends BaseComponent {
+import Gestures from './GesturesPage';
+
+export default class RegistrationPage extends BaseComponent {
     constructor(props) {
         super(props);
-        this.state = {show: false,};
+        this.state = {
+            show: false,
+            name: '',
+            num: '',
+            password: '',
+
+        };
     }
     _onPressListItem() {
         this.setState((previousState) => {
@@ -30,6 +40,47 @@ export default class MainPage extends BaseComponent {
             })
         });
     }
+    fetchData = () => {
+        let formData = new FormData();
+        formData.append('account', this.state.num,);
+        formData.append('accountPassword', this.state.password,);
+        formData.append('nick', this.state.name,);
+        fetch('http://10.2.1.92:8080/regist', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: formData,
+        }).then((response) => response.json())
+            .then((responseData) => {
+                if (responseData.rspCode == '000000') {
+                    console.log(responseData)
+                    this.toNextPage({
+                        name: 'Gestures',
+                        component: Gestures,
+                        params: {num:this.state.num}
+                    });
+                } else {
+                    return (
+                        AlertIOS.alert(
+                            '抱歉',
+                            '请重新注册',
+                            [{text: '确定', onPress: () => {
+                                    /*this.toNextPage({
+                                        name: 'RegistrationPage',
+                                        component: RegistrationPage,
+                                        params: {}});*/}},]
+                        )
+                    )
+                }
+            }).catch(
+            (error) => {
+            });
+    }
+    _userNumChange = (text) =>{
+        this.setState({num: text});
+        userNum = text;
+    }
     render() {
         let v = this.state.show ? <View style={styles.photoview}>
             <View style={styles.everyview}><Text style={styles.everytext}>去拍照</Text></View>
@@ -37,7 +88,7 @@ export default class MainPage extends BaseComponent {
             <View style={styles.everyview}><Text style={styles.everytext}>取消</Text></View>
         </View> : null;
         return (
-            <View >
+            <View>
                 <View style={styles.flex}>
                     <NavigatorView title="注册"/>
                 </View>
@@ -45,11 +96,14 @@ export default class MainPage extends BaseComponent {
                     <View>
                         <TextInput style={styles.inputview1}
                                    placeholder="用户名"
+                                   maxLength={11}
+                                   onChangeText={(text) => this._userNumChange( text)}
                         />
                     </View>
                     <View>
                         <TextInput style={styles.inputview2}
                                    placeholder="密码"
+                                   onChangeText={(text) => this.setState({password: text})}
                         />
                     </View>
                     <View>
@@ -63,6 +117,7 @@ export default class MainPage extends BaseComponent {
                     <View>
                         <TextInput style={styles.inputview4}
                                    placeholder="昵称"
+                                   onChangeText={(text) => this.setState({name: text})}
                         />
                     </View>
                     <View style={styles.inputview5}>
@@ -76,11 +131,8 @@ export default class MainPage extends BaseComponent {
                     </View>
                     <View style={styles.dengluview}>
                         <TouchableOpacity onPress={() => {
-                            this.toNextPage({
-                                name: 'Gestures',
-                                component: Gestures,
-                                params: {}
-                            });
+
+                            this.fetchData()
                         }}>
                             <Text style={styles.denglutext}>注册</Text>
                         </TouchableOpacity>

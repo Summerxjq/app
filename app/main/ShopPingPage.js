@@ -1,5 +1,5 @@
 /**
- * Created by xujiaqi on 2018/1/4.
+ * Created by xujiaqi on 2018/1/19.
  */
 import React, {Component} from 'react';
 import {
@@ -22,7 +22,7 @@ import BaseComponent from '../component/BaseComponent';
 import Landing from './LandingPage'
 import Registration from './RegistrationPage';
 import NavigatorView from '../component/AllNavigationView';
-export default class ShangPinPage extends BaseComponent {
+export default class ShopPing extends BaseComponent {
     componentWillUnmount() {
     }
 
@@ -34,33 +34,11 @@ export default class ShangPinPage extends BaseComponent {
         this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
             navTitle: '首页',
-            dataSource: this.ds.cloneWithRows(this.props.shangPinData),
+            dataSource: this.ds.cloneWithRows(this.props.things.dataContent),
         };
-    }
-    onclickchange=(data) => {
-        let formData = new FormData();
-        formData.append('goodsId',data.id,);
-        formData.append('account',11111111112 ,);
-        fetch('http://10.2.1.92:8080/shoppingCart/add',{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: formData,
-        }).then((response) => response.json())
-            .then((responseData) => {
-                console.log('gouwuche',responseData)
-                var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-                this.setState({
-                    dataSource:ds.cloneWithRows(responseData.data),
-                    renderPlaceholderOnly:'success'
-                });
-            }).catch(
-            (error)=> {
-            });
+        console.log('---------'+this.props.things)
     }
     renderRow = (rowData, sectionId, rowID) => {
-console.log('超市'+this.props.shangPinData)
         return (
             <View style={[styles.everyview,]}>
                 <Image source={{uri:rowData.goodsPicUrl}}
@@ -79,25 +57,23 @@ console.log('超市'+this.props.shangPinData)
                 <TouchableOpacity  onPress={() => {
                     this.onclickchange(rowData)
                 }}>
-                <Image source={require('../image/购物车2.png')}
-                       resizeMode="center"
-                       style={styles.gouwu}/>
+                    <Image source={require('../image/购物车2.png')}
+                           resizeMode="center"
+                           style={styles.gouwu}/>
                 </TouchableOpacity>
             </View>
         )
-
     }
-
     render() {
-            return (
-                <View style={styles.Maxview}>
-                    <ListView contentContainerStyle={styles.container}
-                              dataSource={this.state.dataSource}
-                              renderRow={this.renderRow}
-                    />
-                </View>
-            );
-        }
+        return (
+            <View style={styles.Maxview}>
+                <ListView contentContainerStyle={styles.container}
+                          dataSource={this.state.dataSource}
+                          renderRow={this.renderRow}
+                />
+            </View>
+        );
+    }
 }
 const styles = StyleSheet.create({
     gouwu:{
@@ -169,7 +145,7 @@ const styles = StyleSheet.create({
         marginTop:Pixel.getPixel(7),
     },
     text1:{
-       width:Pixel.getPixel(70),
+        width:Pixel.getPixel(70),
         color:'red',
         fontSize:18,
         marginLeft:Pixel.getPixel(165),
@@ -196,3 +172,4 @@ const styles = StyleSheet.create({
         borderBottomWidth:1
     }
 });
+

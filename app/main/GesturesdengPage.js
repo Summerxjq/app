@@ -1,5 +1,5 @@
 /**
- * Created by xujiaqi on 2018/1/2.
+ * Created by xujiaqi on 2018/1/20.
  */
 import React, {Component} from 'react';
 import {
@@ -36,7 +36,7 @@ export default class Gestures extends BaseComponent {
         super(props);
         this.state = {
             renderPlaceholderOnly: 'blank',
-            message: '请设置手势密码'
+            message: '请校验手势密码'
         }
     }
 
@@ -52,78 +52,64 @@ export default class Gestures extends BaseComponent {
         );
     }
 
-    onStart = (password) => {
-        if (Password1 === '') {
-            this.setState({
-                message: '请输入手势密码'
-            });
-        } else {
-            this.setState({
-                message: '请再次输入你的密码'
-            });
-        }
-    }
+    onStart = (password) => {}
     onEnd = (password) => {
-        if (Password1 === '') {
+        /*if (Password1 === '') {
             // The first password
             Password1 = password;
             this.setState({
                 status: 'normal',
-                message: '请再输入一次手势密码.'
+                message: 'Please input your password secondly.'
             });
-        } else {
+        } else {*/
             // The second password
-            if (password === Password1) {
-                this.setState({
+            /*if (password === Password1) {*/
+                /*this.setState({
                     status: 'right',
                     message: 'Your password is set to ' + password
-                });
+                });*/
                 let formData = new FormData();
-                formData.append('account',this.props.num,);
-                formData.append('gesturesPassword',password,);
-                fetch('http://10.2.1.92:8080/setGestures', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: formData,
-                }).then((response) => response.json())
-                    .then((responseData) => {
-                        console.log('FirstPageOne',responseData)
-                        if (responseData.rspCode == '000000') {
-                            console.log(responseData)
-                            this.toNextPage({
-                                name: 'HomePage',
-                                component: HomePage,
-                            });
-                        }
-                        else {
-                            return (
-                                AlertIOS.alert(
-                                    '抱歉',
-                                    '请重新输入手势密码',
-                                    [{text: '确定', onPress: () => {
-                                    }},]
-                                )
-                            )
-                        }
-                    }).catch(
-                    (error)=> {
-                    });
+                 formData.append('account',this.props.num,);
+                 formData.append('gesturesPassword',password,);
+                 fetch('http://10.2.1.92:8080/checkGestures', {
+                 method: 'POST',
+                 headers: {
+                 'Content-Type': 'application/x-www-form-urlencoded'
+                 },
+                 body: formData,
+                 }).then((response) => response.json())
+                 .then((responseData) => {
+                 console.log('FirstPageOne',responseData)
+                     if (responseData.rspCode == '000005') {
+                         console.log(responseData)
+                         this.setState({
+                             status: 'wrong',
+                             message: '请重新校验密码'
+                         });
 
-                    /*this.toNextPage({
-                        name: 'HomePage',
-                        component: HomePage,
-                        params: {}
-                    })*/
-            } else {
+                     }else{
+                         this.toNextPage({
+                             name: 'HomePage',
+                             component: HomePage,
+                         });
+                     }
+                 }).catch(
+                 (error)=> {
+                 });
+                /*Password1 = '';*/
+                /*this.toNextPage({
+                    name: 'HomePage',
+                    component: HomePage,
+                    params: {}
+                })*/
+           /* } else {
                 this.setState({
                     status: 'wrong',
                     message: '密码不正确重新输入'
                 });
-            }
+            }*/
         }
-    }
+
 
     render() {
         if (this.state.renderPlaceholderOnly !== 'success') {
@@ -178,3 +164,4 @@ const styles = StyleSheet.create({
         backgroundColor: 'ghostwhite'
     },
 });
+

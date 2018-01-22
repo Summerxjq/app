@@ -34,36 +34,218 @@ export default class FirstPageOne extends BaseComponent {
         super(props);
         this.state = {
             renderPlaceholderOnly: 'blank',
+            banners:[],
+            goods_types:[],
         }
     }
 
+    initFinish(){
+        this.fetchData();
+    }
+
+    fetchData = () => {
+        let formData = new FormData();
+        formData.append('account', this.state.num,);
+        formData.append('accountPassword', this.state.password,);
+        fetch('http://10.2.1.92:8080/main/businessAffairs', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: formData,
+        }).then((response) => response.json())
+            .then((responseData) => {
+                console.log('FirstPageOne',responseData.data)
+                this.setState({
+                    banners:responseData.data.banners,
+                    goods_types:responseData.data.goods_types,
+                    renderPlaceholderOnly:'success'
+                });
+            }).catch(
+            (error)=> {
+            });
+    }
     render() {
 
-        return (
-            <View style={styles.Maxview}>
-                <View style={styles.lunboview}>
-                    <Swiper height={Pixel.getPixel(200)}
-                            width={Pixel.getPixel(375)}
-                            autoplay={true}
-                    >
-                        <Image source={require('../image/banner1.jpg')}
-                        style={styles.photoviews}/>
-                        <Image source={require('../image/banner2.jpg')}
-                        style={styles.photoviews}
-                        />
-                        <Image source={require('../image/banner3.jpg')}
-                               style={styles.photoviews}/>
-                        <Image source={require('../image/banner4.jpeg')}
-                               style={styles.photoviews}
-                        />
-                    </Swiper>
+            if(this.state.renderPlaceholderOnly!=='success'){
+                return null;
+            }else{
+                return(<View style={styles.Maxview}>
+                    <View style={styles.lunboview}>
+                        <Swiper height={Pixel.getPixel(200)}
+                                width={Pixel.getPixel(375)}
+                                autoplay={true}
+                        >{this.state.banners.map((value, index) => {
+                            return(<Image key={index+'image'} source={{uri:value.picUrl}}
+                                          style={styles.photoviews}/>)
+                        })}
+                        </Swiper>
+                    </View>
+                    <View style={styles.pubu}>
+                        {this.state.goods_types.map((value, index) => {
+                                if(index==0){
+                                    return(
+                                        <View key={index+'images'}style={styles.photo1}>
+                                            <Text style={styles.text1}>{value.goodsTypeName}</Text>
+                                            <Image source={{uri:value.goodsTypePicUrl}}
+                                                     resizeMode="stretch"
+                                                     style={styles.photoview1}/>
+                                        </View>
+                                        )
+                                }
+                            if(index==1){
+                                return(
+                                    <View key={index+'images'}style={styles.photo1}>
+                                        <Text style={styles.text1}>{value.goodsTypeName}</Text>
+                                        <Image source={{uri:value.goodsTypePicUrl}}
+                                               resizeMode="stretch"
+                                               style={styles.photoview1}/>
+                                    </View>
+                                )
 
-                </View>
-            </View>
-        );
+                            }
+                            if(index==2){
+                                return(
+                                    <View key={index+'images'} style={styles.photo3}>
+                                        <Text style={styles.text3}>{value.goodsTypeName}</Text>
+                                        <Image source={{uri:value.goodsTypePicUrl}}
+                                                 resizeMode="stretch"
+                                                 style={styles.photoview3}/>
+                                    </View>
+                                )
+
+                            }
+                            if(index==3){
+                                return(
+                                    <View key={index+'images'}style={styles.photo1}>
+                                        <Text style={styles.text1}>{value.goodsTypeName}</Text>
+                                        <Image source={{uri:value.goodsTypePicUrl}}
+                                                 resizeMode="stretch"
+                                                 style={styles.photoview1}/>
+                                    </View>
+                                )
+
+                            }
+                            if(index==4){
+                                return(
+                                    <View key={index+'images'}style={styles.photo3}>
+                                        <Text style={styles.text3}>{value.goodsTypeName}</Text>
+                                        <Image source={{uri:value.goodsTypePicUrl}}
+                                               resizeMode="stretch"
+                                               style={styles.photoview3}/>
+                                    </View>
+                                )
+
+                            }
+                            if(index==5){
+                                return(
+                                    <View key={index+'images'}style={styles.photo1}>
+                                        <Text style={styles.text1}>{value.goodsTypeName}</Text>
+                                        <Image source={{uri:value.goodsTypePicUrl}}
+                                               resizeMode="stretch"
+                                               style={styles.photoview1}/>
+                                    </View>
+                                )
+
+                            }
+                            if(index==6){
+                                return(
+                                    <View key={index+'images'}style={styles.photo1}>
+                                        <Text style={styles.text1}>{value.goodsTypeName}</Text>
+                                        <Image source={{uri:value.goodsTypePicUrl}}
+                                               resizeMode="stretch"
+                                               style={styles.photoview1}/>
+                                    </View>
+                                )
+
+                            }
+                            if(index==7){
+                                return(
+                                    <View key={index+'images'}style={styles.photo1}>
+                                        <Text style={styles.text1}>{value.goodsTypeName}</Text>
+                                        <Image source={{uri:value.goodsTypePicUrl}}
+                                               resizeMode="stretch"
+                                               style={styles.photoview1}/>
+                                    </View>
+                                )
+
+                            }
+                            if(index==8){
+                                return(
+                                    <View key={index+'images'}style={styles.photo1}>
+                                        <Text style={styles.text1}>{value.goodsTypeName}</Text>
+                                        <Image source={{uri:value.goodsTypePicUrl}}
+                                               resizeMode="stretch"
+                                               style={styles.photoview1}/>
+                                    </View>
+                                )
+
+                            }
+                            if(index==9){
+                                return(
+                                    <View key={index+'images'}style={styles.photo1}>
+                                        <Text style={styles.text1}>{value.goodsTypeName}</Text>
+                                        <Image source={{uri:value.goodsTypePicUrl}}
+                                               resizeMode="stretch"
+                                               style={styles.photoview1}/>
+                                    </View>
+                                )
+
+                            }
+                        })}
+
+
+
+                    </View>
+                </View>)
+                }
+
     }
 }
 const styles = StyleSheet.create({
+    photoview3:{
+        height: Pixel.getPixel(70),
+        width: Pixel.getPixel(165),
+        marginLeft:Pixel.getPixel(15),
+    },
+    photo3:{
+
+        height: Pixel.getPixel(100),
+        width: Pixel.getPixel(189),
+        borderColor:'#F3F5F9',
+        borderWidth:1
+    },
+    text1:{
+        height:Pixel.getPixel(20),
+        textAlign:'center'
+    },
+    text3:{
+        height:Pixel.getPixel(20),
+        marginLeft:Pixel.getPixel(15),
+    },
+    photoview1:{
+        height: Pixel.getPixel(70),
+        width: Pixel.getPixel(60),
+        marginLeft:Pixel.getPixel(15),
+    },
+    photo1:{
+
+        height: Pixel.getPixel(100),
+        width: Pixel.getPixel(93),
+        borderColor:'#F3F5F9',
+        borderWidth:1
+    },
+    everyphoto:{
+        marginLeft:Pixel.getPixel(10),
+        height: Pixel.getPixel(120),
+        width: Pixel.getPixel(100),
+    },
+    pubu:{
+        flexDirection:'row',
+        height:Pixel.getPixel(320),
+        flexWrap:'wrap',
+        backgroundColor:"white"
+    },
     photoviews:{
         height: Pixel.getPixel(200),
         width: Pixel.getPixel(375),
@@ -71,12 +253,8 @@ const styles = StyleSheet.create({
     },
     lunboview: {
         height: Pixel.getPixel(200),
-        backgroundColor: "yellow",
-
-
     },
     Maxview: {
         height: Pixel.getPixel(610),
-
     },
 });

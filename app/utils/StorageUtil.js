@@ -19,7 +19,7 @@ export default class StorageUtil {
         });
     }
 
-    static mGetItem(keyName, callBack) {
+    static mGetIwtem(keyName, callBack) {
         AsyncStorage.getItem(keyName, function (errs, result) {
                 //TODO:错误处理
                 if (!errs) {
