@@ -135,6 +135,7 @@ const styles = StyleSheet.create({
     },
     imageviews: {
         height: Pixel.getPixel(70),
+        width:width/2
 
     },
     secondview: {

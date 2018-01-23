@@ -250,6 +250,7 @@ const styles = StyleSheet.create({
     },
     lunboview: {
         height: Pixel.getPixel(200),
+        backgroundColor:'blue'
     },
     Maxview: {
         height: Pixel.getPixel(610),
