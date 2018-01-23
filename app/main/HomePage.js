@@ -141,11 +141,8 @@ export default class HomePage extends BaseComponent {
 
 var styles = StyleSheet.create({
     chaoshi:{
-
         height:height -56,
-        marginTop:Pixel.getPixel(20),
-        position:'absolute',
-        bottom:56
+        marginBottom:Pixel.getPixel(0),
 
     },
     Maxview:{
@@ -164,6 +161,7 @@ var styles = StyleSheet.create({
     },
     container: {
         flexDirection: 'row',
+        backgroundColor:'blue'
     },
     sview: {
         width: Pixel.getPixel(width/4),
