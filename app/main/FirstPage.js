@@ -117,7 +117,7 @@ export default class FirstPage extends BaseComponent {
 }
 const styles = StyleSheet.create({
     bigview:{
-        marginTop:Pixel.getPixel(20),
+
         height:Pixel.getPixel(520),
 
     },

@@ -141,6 +141,7 @@ export default class HomePage extends BaseComponent {
 
 var styles = StyleSheet.create({
     chaoshi:{
+        height:height-56,
         position:'absolute',
         bottom:56
     },
@@ -151,8 +152,6 @@ var styles = StyleSheet.create({
     imageviews: {
         width: Pixel.getPixel(30),
         height: Pixel.getPixel(30),
-
-
     },
     etext: {
         textAlign: "center",
@@ -162,18 +161,14 @@ var styles = StyleSheet.create({
     },
     container: {
         flexDirection: 'row',
-
-
     },
     sview: {
         width: Pixel.getPixel(width/4),
         height: Pixel.getPixel(60),
         marginTop: Pixel.getPixel(3),
-
     },
     tabview: {
         height: Pixel.getPixel(56),
-        backgroundColor: 'red',
         borderTopColor: 'darkgray',
         borderTopWidth: 1,
         flexDirection: 'row',
