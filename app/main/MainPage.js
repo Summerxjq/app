@@ -51,15 +51,12 @@ export default class MainPage extends BaseComponent {
     }
 
     fetchData = () => {
-        let formData = new FormData();
-        formData.append('account', this.state.num,);
-        formData.append('accountPassword', this.state.password,);
         fetch('http://10.2.1.92:8080/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
-            body: formData,
+            body: 'account=this.state.num&accountPassword=this.state.password'
         }).then((response) => response.json())
             .then((responseData) => {
             console.log(responseData)
@@ -108,6 +105,7 @@ export default class MainPage extends BaseComponent {
                     <View>
                         <TextInput style={styles.inputview2}
                                    placeholder="密码"
+                                   password={true}
                                    onChangeText={(text) => this.setState({password: text})}
                         />
                     </View>

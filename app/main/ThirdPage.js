@@ -47,14 +47,12 @@ export default class FirstPage extends BaseComponent {
     }
 
     fetchData = () => {
-        let formData = new FormData();
-        formData.append('account', 11111111112,);
         fetch('http://10.2.1.92:8080/shoppingCart/get', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
-            body: formData,
+            body:'account='+11111111112
         }).then((response) => response.json())
             .then((responseData) => {
                 console.log('购物车', JSON.stringify(responseData.data))

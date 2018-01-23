@@ -160,7 +160,7 @@ var styles = StyleSheet.create({
     },
     container: {
         flexDirection: 'row',
-        backgroundColor:'blue'
+        backgroundColor:'white'
     },
     sview: {
         width: Pixel.getPixel(width/4),

@@ -41,16 +41,12 @@ export default class RegistrationPage extends BaseComponent {
         });
     }
     fetchData = () => {
-        let formData = new FormData();
-        formData.append('account', this.state.num,);
-        formData.append('accountPassword', this.state.password,);
-        formData.append('nick', this.state.name,);
         fetch('http://10.2.1.92:8080/regist', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
-            body: formData,
+            body:'account='+this.state.num+'&accountPassword='+this.state.password+'&nick='+this.state.name
         }).then((response) => response.json())
             .then((responseData) => {
                 if (responseData.rspCode == '000000') {
@@ -111,6 +107,7 @@ export default class RegistrationPage extends BaseComponent {
                     <View>
                         <TextInput style={styles.inputview2}
                                    placeholder="密码"
+                                   password={true}
                                    onChangeText={(text) => this.setState({password: text})}
                         />
                     </View>
