@@ -143,7 +143,7 @@ var styles = StyleSheet.create({
     chaoshi:{
         height:height-56,
         position:'absolute',
-        bottom:56
+        bottom:33
     },
     Maxview:{
         height:height,

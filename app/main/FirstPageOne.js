@@ -249,7 +249,6 @@ const styles = StyleSheet.create({
         resizeMode:"stretch"
     },
     lunboview: {
-        marginTop:Pixel.getPixel(20),
         height: Pixel.getPixel(200),
         backgroundColor:'blue'
     },

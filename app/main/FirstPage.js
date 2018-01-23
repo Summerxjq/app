@@ -117,9 +117,7 @@ export default class FirstPage extends BaseComponent {
 }
 const styles = StyleSheet.create({
     bigview:{
-
         height:Pixel.getPixel(520),
-
     },
     textview:{
         fontSize:25,
@@ -145,6 +143,5 @@ const styles = StyleSheet.create({
     },
     Maxview: {
         height: Pixel.getPixel(610),
-
     },
 });
