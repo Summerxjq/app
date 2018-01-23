@@ -54,8 +54,7 @@ export default class HomePage extends BaseComponent {
                     <Image source={rowData.image}
                            resizeMode="center"
                            style={styles.imageviews}/>
-                    <Text
-                        style={[styles.etext, rowData.flag ? {color: 'red'} : {}]}>{rowData.title}</Text>
+                    <Text style={[styles.etext, rowData.flag ? {color: 'red'} : {}]}>{rowData.title}</Text>
                 </TouchableOpacity>
             </View>
         )
@@ -152,11 +151,11 @@ var styles = StyleSheet.create({
     imageviews: {
         width: Pixel.getPixel(30),
         height: Pixel.getPixel(30),
+        marginTop:Pixel.getPixel(1),
     },
     etext: {
         textAlign: "center",
-        marginTop: 5,
-        marginBottom: 14,
+        marginBottom: 10,
         fontSize: 15
     },
     container: {
