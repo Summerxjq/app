@@ -157,7 +157,7 @@ var styles = StyleSheet.create({
     },
     container: {
         flexDirection: 'row',
-        marginLeft: Pixel.getPixel(0),
+       marginBottom:Pixel.getPixel(0),
     },
     sview: {
         width: Pixel.getPixel(width/4),
