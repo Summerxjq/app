@@ -48,10 +48,9 @@ export default class HomePage extends BaseComponent {
         console.log('-------flag', rowData.flag);
         return (
             <View style={[styles.sview,]}>
-                <TouchableOpacity onPress={
-                    () => {
+                <TouchableOpacity onPress={() => {
                         this.clickRowData(rowData.title, rowId);
-                    }}>
+                    }} style = {{alignItems:"center"}}>
                     <Image source={rowData.image}
                            resizeMode="center"
                            style={styles.imageviews}/>
@@ -147,7 +146,7 @@ var styles = StyleSheet.create({
     imageviews: {
         width: Pixel.getPixel(30),
         height: Pixel.getPixel(30),
-        marginLeft:Pixel.getPixel(30),
+
 
     },
     etext: {
@@ -158,12 +157,13 @@ var styles = StyleSheet.create({
     },
     container: {
         flexDirection: 'row',
-        marginLeft: Pixel.getPixel(7),
+        marginLeft: Pixel.getPixel(0),
     },
     sview: {
-        width: Pixel.getPixel(90),
+        width: Pixel.getPixel(width/4),
         height: Pixel.getPixel(60),
         marginTop: Pixel.getPixel(3),
+        backgroundColor:"blue"
 
     },
     Maxview: {},

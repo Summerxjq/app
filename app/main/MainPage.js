@@ -133,11 +133,11 @@ export default class MainPage extends BaseComponent {
                     </View>
                     <View style={styles.dengluview}>
                         <TouchableOpacity onPress={() => {
-                             /*this.toNextPage({
+                             this.toNextPage({
                                  name: 'HomePage',
                                component: HomePage,
-                             });*/
-                            this.fetchData()
+                             });
+                            //this.fetchData()
                         }}>
                         <Text style={styles.denglutext}>登录</Text>
                         </TouchableOpacity>

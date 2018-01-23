@@ -166,10 +166,12 @@ export default class FirstPageTwo extends BaseComponent {
         if (i == 5) {
             _ScrollView.scrollTo({x: 510})
         }
+        if(i>6){
+            i=0
+            _ScrollView.scrollTo({x: 0})
+        }
         i++;
-       if(i>6){
-           _ScrollView.scrollTo({x: 0})
-       }
+
     }
 
     render() {
