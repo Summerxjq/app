@@ -117,6 +117,7 @@ export default class FirstPage extends BaseComponent {
 }
 const styles = StyleSheet.create({
     bigview:{
+        marginTop:Pixel.getPixel(20),
         height:Pixel.getPixel(520),
     },
     textview:{
@@ -139,6 +140,8 @@ const styles = StyleSheet.create({
     secondview: {
         flexDirection: 'row',
         height: Pixel.getPixel(70),
+        position:'absolute',
+        bottom:0
 
     },
     Maxview: {
