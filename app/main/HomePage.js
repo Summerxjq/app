@@ -163,7 +163,6 @@ var styles = StyleSheet.create({
         width: Pixel.getPixel(width/4),
         height: Pixel.getPixel(60),
         marginTop: Pixel.getPixel(3),
-        backgroundColor:"blue"
 
     },
     Maxview: {},

@@ -76,14 +76,13 @@ export default class SecondPage extends BaseComponent {
         this.fetchData();
     }
     fetchData = () => {
-        let formData = new FormData();
-        formData.append('account',);
+
         fetch('http://10.2.1.92:8080/main/classification', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
-            body: formData,
+
         }).then((response) => response.json())
             .then((responseData) => {
                 console.log('FirstPageTwo', responseData.data)
@@ -96,44 +95,7 @@ export default class SecondPage extends BaseComponent {
             (error) => {
             });
     }
-    clickchanges = (rowData) => {
-        let formData = new FormData();
-        formData.append('composite',rowData);
-        fetch('http://10.2.1.92:8080/main/classification', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: formData,
-        }).then((response) => response.json())
-            .then((responseData) => {
-                console.log(responseData.data)
-                this.setState({
-                    baobei:responseData.data
-                });
-            }).catch(
-            (error) => {
-            });
-    }
-    sanclick2 = (rowData) => {
-        let formData = new FormData();
-        formData.append('composite',rowData);
-        fetch('http://10.2.1.92:8080/main/classification', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: formData,
-        }).then((response) => response.json())
-            .then((responseData) => {
-                console.log(responseData.data)
-                this.setState({
-                   baobei:responseData.data
-                });
-            }).catch(
-            (error) => {
-            });
-    }
+
     clickchanges1 = (rowData) => {
         console.log(rowData)
         let formData = new FormData();

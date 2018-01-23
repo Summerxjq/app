@@ -48,15 +48,12 @@ export default class FirstPageTwo extends BaseComponent {
         this.fetchData();
     }
     fetchData = () => {
-        let formData = new FormData();
-        formData.append('account', this.state.num,);
-        formData.append('accountPassword', this.state.password,);
         fetch('http://10.2.1.92:8080/main/supermarket', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
-            body: formData,
+            body: 'account:this.state.num&accountPassword:this.state.password'
         }).then((response) => response.json())
             .then((responseData) => {
                 console.log('FirstPageTwo', responseData.data)
