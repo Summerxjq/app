@@ -125,7 +125,7 @@ export default class HomePage extends BaseComponent {
     render() {
         return (
             <View style={styles.Maxview}>
-                <View>{this.state.View}</View>
+                <View style={styles.chaoshi}>{this.state.View}</View>
                 <View style={styles.tabview}>
                     <ListView contentContainerStyle={styles.container}
                               dataSource={this.state.dataSource}
@@ -140,6 +140,10 @@ export default class HomePage extends BaseComponent {
 }
 
 var styles = StyleSheet.create({
+    chaoshi:{
+        position:'absolute',
+        bottom:56
+    },
     Maxview:{
         height:height,
         width:width
