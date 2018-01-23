@@ -159,8 +159,10 @@ var styles = StyleSheet.create({
         fontSize: 15
     },
     container: {
+        width:width,
         flexDirection: 'row',
-        backgroundColor:'white'
+        backgroundColor:'white',
+        backgroundColor:'red'
     },
     sview: {
         width: Pixel.getPixel(width/4),
