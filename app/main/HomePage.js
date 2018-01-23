@@ -124,12 +124,9 @@ export default class HomePage extends BaseComponent {
 
     render() {
         return (
-            <View>
+            <View style={styles.Maxview}>
                 <View>{this.state.View}</View>
                 <View style={styles.tabview}>
-                    <View>
-
-                    </View>
                     <ListView contentContainerStyle={styles.container}
                               dataSource={this.state.dataSource}
                               renderRow={this.renderRow}
@@ -143,6 +140,10 @@ export default class HomePage extends BaseComponent {
 }
 
 var styles = StyleSheet.create({
+    Maxview:{
+        height:height,
+        width:width
+    },
     imageviews: {
         width: Pixel.getPixel(30),
         height: Pixel.getPixel(30),
@@ -157,7 +158,8 @@ var styles = StyleSheet.create({
     },
     container: {
         flexDirection: 'row',
-       marginBottom:Pixel.getPixel(0),
+
+
     },
     sview: {
         width: Pixel.getPixel(width/4),
@@ -165,14 +167,14 @@ var styles = StyleSheet.create({
         marginTop: Pixel.getPixel(3),
 
     },
-    Maxview: {},
     tabview: {
-
         height: Pixel.getPixel(56),
-        backgroundColor: 'white',
+        backgroundColor: 'red',
         borderTopColor: 'darkgray',
         borderTopWidth: 1,
         flexDirection: 'row',
+        position:'absolute',
+        bottom:0
 
     },
 })
