@@ -81,8 +81,16 @@ export default class RegistrationPage extends BaseComponent {
         this.setState({num: text});
         userNum = text;
     }
+    _clear= () =>{
+        this.setState({
+            show:false
+        })
+        ;
+    }
     render() {
         let v = this.state.show ? <View style={styles.photoview}>
+
+            <TouchableOpacity style={{backgroundColor:'transparent',height:Pixel.getPixel(height -60*3),width:width}} onPress={() => this._clear()}/>
             <View style={styles.everyview}><Text style={styles.everytext}>去拍照</Text></View>
             <View style={styles.everyview}><Text style={styles.everytext}>去相册选择</Text></View>
             <View style={styles.everyview}><Text style={styles.everytext}>取消</Text></View>
@@ -153,10 +161,13 @@ const styles = StyleSheet.create({
         height: Pixel.getPixel(60),
         borderTopColor: 'darkgray',
         borderTopWidth: 1,
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        width:width,
+
     },
     photoview: {
-        marginTop: Pixel.getPixel(-135),
+        position:'absolute',
+        bottom:0
     },
     jiatext: {
         color: 'darkgray',
