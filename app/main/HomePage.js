@@ -142,7 +142,7 @@ export default class HomePage extends BaseComponent {
 var styles = StyleSheet.create({
     chaoshi:{
         height:height -56,
-        marginBottom:Pixel.getPixel(0),
+        marginBottom:Pixel.getPixel(56),
 
     },
     Maxview:{
